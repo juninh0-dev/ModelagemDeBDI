@@ -32,11 +32,37 @@ create table equipamento(
     equi_ano_fabri date not null,
     equi_detal_config text,
     equi_obs text,
-    FOREIGN KEY (fk_cliente_cli_codigo) REFERENCES cliente(cli_codigo)
+	fk_cli_codigo INT,
+    FOREIGN KEY (fk_cli_codigo) REFERENCES cliente(cli_codigo)
 );
 
 create table ordemServico(
-	os_data int auto_increment primary key,
-    FOREIGN KEY (fk_cliente_cli_codigo) REFERENCES cliente(cli_codigo),
-    FOREIGN KEY (fk_equipamento) REFERENCES cliente(cli_codigo)
+	os_codigo int auto_increment primary key,
+	os_data date not null,
+    os_data_fechamento date not null,
+    fk_cli_codigo int not null,
+    fk_equi_codigo int not null,
+    fk_tec_codigo int not null,
+    FOREIGN KEY (fk_cli_codigo) REFERENCES cliente(cli_codigo),
+    FOREIGN KEY (fk_equi_codigo) REFERENCES equipamento(equi_codigo),
+	FOREIGN KEY (fk_tec_codigo) REFERENCES tecnico(tec_codigo)
+);
+
+create table servico(
+	ser_codigo int auto_increment primary key, 
+    ser_descricao text,
+    ser_horas_de_aplicacao time,
+    ser_valor decimaL(5,2) not null
+);
+
+create table item(
+	item_codigo int primary key auto_increment,
+    item_valor decimal(5,2) not null,
+    item_desc text
+);
+
+create table tecnico(
+	tec_codigo int primary key auto_increment,
+    tec_nome varchar(50) not null,
+    tec_tell varchar(11) not null unique
 );
