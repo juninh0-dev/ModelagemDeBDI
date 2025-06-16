@@ -24,11 +24,19 @@ create table cli_endereco(
     FOREIGN KEY (cod_endereco) REFERENCES cliente(cli_codigo)
 );
 
+
 create table equipamento(
-	equi_codigo varchar
-	equi_descricao
-    equi_marca
-    equi_ano_fabri
-    equi_
+	equi_codigo varchar(8) primary key,
+	equi_descricao text,
+    equi_marca varchar(50) not null,
+    equi_ano_fabri date not null,
+    equi_detal_config text,
+    equi_obs text,
+    FOREIGN KEY (fk_cliente_cli_codigo) REFERENCES cliente(cli_codigo)
 );
 
+create table ordemServico(
+	os_data int auto_increment primary key,
+    FOREIGN KEY (fk_cliente_cli_codigo) REFERENCES cliente(cli_codigo),
+    FOREIGN KEY (fk_equipamento) REFERENCES cliente(cli_codigo)
+);
